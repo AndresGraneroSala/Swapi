@@ -22,11 +22,16 @@ public class CallApi : MonoBehaviour
 
     [SerializeField] int actualPage;
 
+    [SerializeField] GameObject loading;
+
     //TODO button url and loading...
 
     // Start is called before the first frame update
     public void StartCorrutineCallPeople(string page)
     {
+        loading.SetActive(true);
+        actualPage = 0;
+
         people = new List<People>();
 
         StopAllCoroutines();
@@ -65,7 +70,7 @@ public class CallApi : MonoBehaviour
 
 
         print(result);
-
+        loading.SetActive(false);
 		//if (key.Contains("people"))
 		//{
             CreatePersons(page);
@@ -111,7 +116,8 @@ public class CallApi : MonoBehaviour
         scrollViewInitialized = Instantiate(ScrollView,myCanvas.Find("Scroll"));
         Transform content= scrollViewInitialized.transform.Find("Viewport/Content");
 
-
+        pageText = scrollViewInitialized.transform.Find("pageText").GetComponent<Text>();
+        pageText.text = $"Page {actualPage}";
 
         for (int i = 0; i < people[page].results.Length; i++)
 		{
@@ -163,6 +169,10 @@ public class CallApi : MonoBehaviour
     void ChangePagePeople(int page)
 	{
         actualPage += page;
+
+
+        
+        //pageText.text = $"Page {actualPage}";
 
         CreatePersons(actualPage);
 	}
