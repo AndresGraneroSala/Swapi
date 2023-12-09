@@ -13,31 +13,35 @@ public class CallApi : MonoBehaviour
 
     [SerializeField] private GameObject myButton;
 
-    [HideInInspector] private People people;
+    //[HideInInspector]
+    private List<People> people= new List<People>();
     [SerializeField] GameObject panel_person;
     [SerializeField] GameObject instantiated_panel_person;
 
     [SerializeField] Text pageText;
 
+    [SerializeField] int actualPage;
 
     //TODO button url and loading...
 
     // Start is called before the first frame update
     public void StartCorrutineCallPeople(string page)
     {
+        people = new List<People>();
+
         StopAllCoroutines();
         Destroy(instantiated_panel_person);
         
         Destroy(scrollViewInitialized);
         
-        StartCoroutine(InitPeople(page));
+        StartCoroutine(InitPeople(page,0));
     }
 
-    IEnumerator InitPeople(string page)
+    IEnumerator InitPeople(string url, int page)
     {
-        print(page);
+        print(url);
 
-        string key = page;
+        string key = url;
 
         UnityWebRequest webRequest = UnityWebRequest.Get(key);
 
@@ -51,33 +55,71 @@ public class CallApi : MonoBehaviour
 
         string result = webRequest.downloadHandler.text;
 
-        people = JsonUtility.FromJson<People>(result);
+        people.Add(JsonUtility.FromJson<People>(result));
+
+        if (people[0].next.Length > 0)
+        {
+            yield return LoadAllPeople(people[0].next);
+        }
+
+
 
         print(result);
 
 		//if (key.Contains("people"))
 		//{
-            CreatePersons();
+            CreatePersons(page);
         UpdatePageText();
         //}
     }
 
-    public void CreatePersons()
+    IEnumerator LoadAllPeople(string key)
 	{
 
+
+        print(key);
+
+        UnityWebRequest webRequest = UnityWebRequest.Get(key);
+
+        yield return webRequest.SendWebRequest();
+
+        if (webRequest.result == UnityWebRequest.Result.ConnectionError || webRequest.result == UnityWebRequest.Result.ProtocolError)
+        {
+            Debug.LogError("Error: " + webRequest.error);
+            yield break;
+        }
+
+
+        string result = webRequest.downloadHandler.text;
+
+        People thisPeople = JsonUtility.FromJson<People>(result);
+
+        people.Add( thisPeople);
+
+        if (thisPeople.next.Length > 0)
+        {
+            yield return LoadAllPeople(thisPeople.next);
+        }
+
+    }
+
+
+    public void CreatePersons(int page)
+	{
+        Destroy(scrollViewInitialized);
 
         scrollViewInitialized = Instantiate(ScrollView,myCanvas.Find("Scroll"));
         Transform content= scrollViewInitialized.transform.Find("Viewport/Content");
 
 
 
-        for (int i = 0; i < people.results.Length; i++)
+        for (int i = 0; i < people[page].results.Length; i++)
 		{
             GameObject personButton = Instantiate(myButton, content);
-            personButton.GetComponentInChildren<Text>().text = people.results[i].name;
-            personButton.GetComponentInChildren<Text>().text += people.results[i].title;
+            personButton.GetComponentInChildren<Text>().text = people[page].results[i].name;
+            personButton.GetComponentInChildren<Text>().text += people[page].results[i].title;
 
-            Person thisPerson = people.results[i];
+            Person thisPerson = people[page].results[i];
 
             personButton.GetComponentInChildren<Button>().onClick.AddListener(()=> { OpenPanelPerson(thisPerson); });
 
@@ -85,12 +127,29 @@ public class CallApi : MonoBehaviour
 
         }
 
+		if (people[page].previous.Length > 0)
+		{
+            Button Left = scrollViewInitialized.transform.Find("Arrows/Left").GetComponent<Button>();
+            Left.onClick.AddListener(() => { ChangePagePeople(-1); });
+		}
+		else
+		{
+            GameObject Left = scrollViewInitialized.transform.Find("Arrows/Left").gameObject;
+            Destroy(Left);
+        }
 
-        Button Left = scrollViewInitialized.transform.Find("Arrows/Left").GetComponent<Button>();
-        Left.onClick.AddListener(() => { ChangePagePeople(people.previous); });
+        if (people[page].next.Length > 0)
+        {
+            Button Right = scrollViewInitialized.transform.Find("Arrows/Right").GetComponent<Button>();
+            Right.onClick.AddListener(() => { ChangePagePeople(+1); });
+		}
+		else
+		{
+            GameObject Right = scrollViewInitialized.transform.Find("Arrows/Right").gameObject;
+            Destroy(Right);
+        }
 
-        Button Right = scrollViewInitialized.transform.Find("Arrows/Right").GetComponent<Button>();
-        Right.onClick.AddListener(() => { ChangePagePeople(people.next); });
+
 
     }
 
@@ -101,44 +160,17 @@ public class CallApi : MonoBehaviour
 	}
     
 
-    void ChangePagePeople(string page)
+    void ChangePagePeople(int page)
 	{
-		if (page == "")
-		{
-            return;
-		}
-        StartCoroutine( InitPeople(page));
+        actualPage += page;
+
+        CreatePersons(actualPage);
 	}
 
     public void UpdatePageText()
 	{
 
-        pageText = scrollViewInitialized.transform.Find("pageText").GetComponent<Text>();
-
-        print(people.next.Length);
-
-		if (people.next.Length >0)
-		{
-            pageText.text = $"Page {int.Parse(people.next[people.next.Length - 1].ToString())-1}";
-		}
-        else if (people.previous.Length > 0)
-        {
-            pageText.text = $"Page {int.Parse(people.previous[people.previous.Length - 1].ToString()) + 1}";
-		}
-		else
-		{
-            pageText.text = $"Page 1";
-        }
-
-        if (people.next.Length == 0)
-		{
-            scrollViewInitialized.transform.Find("Arrows/Right").gameObject.SetActive(false);
-        }
-
-        if (people.previous.Length == 0)
-        {
-            scrollViewInitialized.transform.Find("Arrows/Left").gameObject.SetActive(false);
-        }
+        
 
     }
 

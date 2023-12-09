@@ -1538,7 +1538,7 @@ GameObject:
   - component: {fileID: 1081945403}
   - component: {fileID: 1081945402}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Api
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1564,6 +1564,7 @@ MonoBehaviour:
   panel_person: {fileID: 8879523856797334459, guid: 0f02e185efee84e4294e855408861da2, type: 3}
   instantiated_panel_person: {fileID: 0}
   pageText: {fileID: 0}
+  actualPage: 0
 --- !u!4 &1081945403
 Transform:
   m_ObjectHideFlags: 0
