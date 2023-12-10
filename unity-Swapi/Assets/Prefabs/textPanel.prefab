@@ -67,7 +67,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 788a8693c85c5184682ddda1e562a5ed, type: 3}
+    m_Font: {fileID: 12800000, guid: 294033ecd0e95274fa2d5ad231d29dd6, type: 3}
     m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
@@ -79,7 +79,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: 'starships:'
 --- !u!114 &-1085325653598046859
 MonoBehaviour:
   m_ObjectHideFlags: 0

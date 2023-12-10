@@ -92,7 +92,7 @@ public class PanelPerson : MonoBehaviour
                         string left = $"{newVariable.Substring(0, posTwoPoints)}:";
 
                         GameObject text_Panel = Instantiate(textPanel, transform.Find("Information/Viewport/Content"));
-                        textPanel.GetComponent<Text>().text = left;
+                        text_Panel.GetComponent<Text>().text = left;
 
                         GameObject button_Panel = Instantiate(buttonPanel, transform.Find("Information/Viewport/Content"));
                         buttonPanel.transform.GetComponentInChildren<Text>().text = "Loading...";
