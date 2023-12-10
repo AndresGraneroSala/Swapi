@@ -24,6 +24,7 @@ public class CallApi : MonoBehaviour
 
     [SerializeField] GameObject loading;
 
+
     //TODO button url and loading...
 
     // Start is called before the first frame update
@@ -38,6 +39,16 @@ public class CallApi : MonoBehaviour
         Destroy(instantiated_panel_person);
         
         Destroy(scrollViewInitialized);
+
+
+        GameObject[] Cards = GameObject.FindGameObjectsWithTag("Card");
+
+		for (int i = 0; i < Cards.Length; i++)
+		{
+            Destroy(Cards[i]);
+
+        }
+
         
         StartCoroutine(InitPeople(page,0));
     }
@@ -74,7 +85,6 @@ public class CallApi : MonoBehaviour
 		//if (key.Contains("people"))
 		//{
             CreatePersons(page);
-        UpdatePageText();
         //}
     }
 
@@ -177,12 +187,7 @@ public class CallApi : MonoBehaviour
         CreatePersons(actualPage);
 	}
 
-    public void UpdatePageText()
-	{
 
-        
-
-    }
 
 }
 

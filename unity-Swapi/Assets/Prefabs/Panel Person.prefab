@@ -965,7 +965,7 @@ GameObject:
   - component: {fileID: 4294064196215919672}
   m_Layer: 5
   m_Name: Panel Person
-  m_TagString: Untagged
+  m_TagString: Card
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1045,6 +1045,8 @@ MonoBehaviour:
   nameText: {fileID: 2500338539337023431}
   textPanel: {fileID: 5317373249029403801, guid: 46b758705439f1741873d01ef28512d9, type: 3}
   buttonPanel: {fileID: 5736922429330301079, guid: 98772f42fbc39544bb0976048203eb1a, type: 3}
+  test: []
+  panelPrefab: {fileID: 4866809095054570672, guid: 6ac94fa3d56f1f44fa8d883d2b03dd82, type: 3}
 --- !u!1 &9098721535756322472
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 using System.Linq;
 public class PanelPerson : MonoBehaviour
 {
@@ -9,10 +10,11 @@ public class PanelPerson : MonoBehaviour
     [SerializeField] GameObject textPanel;
     [SerializeField] GameObject buttonPanel;
     [SerializeField] List<string> test;
+    [SerializeField] GameObject panelPrefab;
 
     public void Init(Person person)
     {
-        if (person.name !=null)
+        if (person.name != null)
         {
             nameText.text = $"Name: {person.name}";
         }
@@ -31,10 +33,10 @@ public class PanelPerson : MonoBehaviour
 
         string[] values = json.Split(',');
         test = values.ToList();
-        Text previousText=null;
+        Text previousText = null;
 
-		for (int i = 1; i < values.Length; i++)
-		{
+        for (int i = 1; i < values.Length; i++)
+        {
 
 
             string newVariable = values[i].Replace("\"", "")
@@ -48,19 +50,19 @@ public class PanelPerson : MonoBehaviour
             newVariable = newVariable.Trim();
 
             if (!newVariable.Contains(":"))
-			{
+            {
                 previousText.text += $", {newVariable}";
                 continue;
-			}
+            }
 
-            bool isVariableNull = newVariable.Substring(newVariable.Length - 1) == ":"||
-                newVariable.Substring(newVariable.Length - 2)==":0" ;
-
-            
+            bool isVariableNull = newVariable.Substring(newVariable.Length - 1) == ":" ||
+                newVariable.Substring(newVariable.Length - 2) == ":0";
 
 
-            if (!isVariableNull&& i!=0)
-			{
+
+
+            if (!isVariableNull && i != 0)
+            {
                 if (!newVariable.Contains("https"))
                 {
 
@@ -72,38 +74,101 @@ public class PanelPerson : MonoBehaviour
 
 
                     previousText.text = removeSpaceFirstTwoPoints(newVariable).ToLower();
-				}
-				else
-				{
+                }
+                else
+                {
 
-                    Debug.Log($"url {newVariable}");
-                    GameObject button_Panel = Instantiate(buttonPanel, transform.Find("Information/Viewport/Content"));
-                    buttonPanel.transform.GetComponentInChildren<Text>().text= newVariable;
+                    if (newVariable.StartsWith("https"))
+                    {
+                        //Debug.Log($"url {newVariable}");
+                        GameObject button_Panel = Instantiate(buttonPanel, transform.Find("Information/Viewport/Content"));
+                        StartCoroutine(InitButtonUrl(button_Panel, newVariable));
 
+                        buttonPanel.transform.GetComponentInChildren<Text>().text = "Loading...";
+                    }
+                    else
+                    {
+
+                        int posTwoPoints = newVariable.IndexOf(':');
+
+                        string left = $"{newVariable.Substring(0, posTwoPoints)}:";
+
+                        GameObject text_Panel = Instantiate(textPanel, transform.Find("Information/Viewport/Content"));
+                        textPanel.GetComponent<Text>().text = left;
+
+                        GameObject button_Panel = Instantiate(buttonPanel, transform.Find("Information/Viewport/Content"));
+                        buttonPanel.transform.GetComponentInChildren<Text>().text = "Loading...";
+
+
+                        string rightUrl = newVariable.Substring(posTwoPoints + 1, newVariable.Length - posTwoPoints - 1);
+
+                        StartCoroutine(InitButtonUrl(button_Panel, rightUrl));
+
+                    }
                 }
             }
+        }
+    }
 
+    IEnumerator InitButtonUrl(GameObject button, string url)
+    {
+        //print(url);
+        UnityWebRequest webRequest = UnityWebRequest.Get(url);
+        yield return webRequest.SendWebRequest();
 
-            //variables.Add(key,value);
-
-
+        if (webRequest.result == UnityWebRequest.Result.ConnectionError || webRequest.result == UnityWebRequest.Result.ProtocolError)
+        {
+            Debug.LogError("Error: " + webRequest.error);
+            yield break;
         }
 
+        string result = webRequest.downloadHandler.text;
 
-        string removeSpaceFirstTwoPoints(string value)
+        Person butPerson = JsonUtility.FromJson<Person>(result);
+
+        print(butPerson.name);
+        if(butPerson.name != null)
 		{
-            int pos = value.IndexOf(':');
-            string result=  (value.Substring(0,pos)+": "+ value.Substring(pos+1));
-
-            Debug.Log(result);
-
-            return result;
+            button.GetComponentInChildren<Text>().text =  butPerson.name;
 		}
+		else
+		{
+            button.GetComponentInChildren<Text>().text = butPerson.title;
+        }
 
+        Person thisPerson = butPerson;
+
+        button.GetComponent<Button>().onClick.AddListener(()=> { OpenNewPannel(thisPerson); });
 
     }
+
+
+    public void OpenNewPannel(Person person)
+    {
+        Transform parent = GameObject.Find("Cards").transform;
+
+
+        GameObject panel = Instantiate(panelPrefab, parent);
+
+        Person myPerson = person;
+        panel.GetComponent<PanelPerson>().Init(myPerson);
+    }
+
+
+    string removeSpaceFirstTwoPoints(string value)
+    {
+        int pos = value.IndexOf(':');
+        string result = (value.Substring(0, pos) + ": " + value.Substring(pos + 1));
+
+        //Debug.Log(result);
+
+        return result;
+    }
+
+
+
     public void Close()
-	{
-		Destroy(gameObject);
-	}
+    {
+        Destroy(gameObject);
+    }
 }
