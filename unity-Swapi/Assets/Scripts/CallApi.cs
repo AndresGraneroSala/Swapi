@@ -63,7 +63,7 @@ public class CallApi : MonoBehaviour
 
 
 
-        
+        pagesLoaded++;
         StartCoroutine(InitPeople(page,0));
     }
 
