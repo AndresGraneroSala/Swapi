@@ -18,9 +18,9 @@ public class CallApi : MonoBehaviour
     [SerializeField] GameObject panel_person;
     [SerializeField] GameObject instantiated_panel_person;
 
-    [SerializeField] Text pageText;
+    [SerializeField] Text pageText, loadingTextPages;
 
-    [SerializeField] int actualPage;
+    [SerializeField] int actualPage,pagesLoaded, totalPages;
 
     [SerializeField] GameObject loading;
 
@@ -37,6 +37,9 @@ public class CallApi : MonoBehaviour
 
     public void StartCorrutineCallPeople(string page)
     {
+        loadingTextPages.text = "Loading...";
+        pagesLoaded = 0;
+
         InputField.SetActive(false);
 
         loading.SetActive(true);
@@ -57,6 +60,8 @@ public class CallApi : MonoBehaviour
             Destroy(Cards[i]);
 
         }
+
+
 
         
         StartCoroutine(InitPeople(page,0));
@@ -82,6 +87,11 @@ public class CallApi : MonoBehaviour
 
         people.Add(JsonUtility.FromJson<People>(result));
 
+
+
+        totalPages = (int)people[0].count / 10;
+        totalPages += people[0].count % 10 == 0 ? 0 : 1;
+
         if (people[0].next.Length > 0)
         {
             yield return LoadAllPeople(people[0].next);
@@ -91,9 +101,13 @@ public class CallApi : MonoBehaviour
 
         print(result);
         loading.SetActive(false);
-		//if (key.Contains("people"))
-		//{
-            CreatePersons(page);
+
+
+
+
+        //if (key.Contains("people"))
+        //{
+        CreatePersons(page);
         //}
     }
 
@@ -118,6 +132,9 @@ public class CallApi : MonoBehaviour
         People thisPeople = JsonUtility.FromJson<People>(result);
 
         people.Add( thisPeople);
+
+        pagesLoaded++;
+        loadingTextPages.text = $"{pagesLoaded}/{totalPages}";
 
         if (thisPeople.next.Length > 0)
         {
