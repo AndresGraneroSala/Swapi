@@ -17,7 +17,9 @@ public class ButtonSelected : MonoBehaviour
 	public void SetParentButton(Transform target)
 	{
 		image.color = new Color(image.color.r, image.color.g, image.color.b, 1);
-		rectTransform.pivot = target.GetComponent<RectTransform>().pivot;
+
 		transform.position = target.position;
+
+
 	}
 }
