@@ -13,8 +13,8 @@ public class CallApi : MonoBehaviour
 
     [SerializeField] private GameObject myButton;
 
-    //[HideInInspector]
-    private List<People> people= new List<People>();
+    [HideInInspector]
+    public List<People> people= new List<People>();
     [SerializeField] GameObject panel_person;
     [SerializeField] GameObject instantiated_panel_person;
 
@@ -24,12 +24,21 @@ public class CallApi : MonoBehaviour
 
     [SerializeField] GameObject loading;
 
+    [SerializeField] GameObject InputField;
 
-    //TODO button url and loading...
+	//TODO button url and loading...
 
-    // Start is called before the first frame update
+	// Start is called before the first frame update
+	private void Awake()
+	{
+        InputField.SetActive(false);
+    }
+
+
     public void StartCorrutineCallPeople(string page)
     {
+        InputField.SetActive(false);
+
         loading.SetActive(true);
         actualPage = 0;
 
@@ -92,7 +101,6 @@ public class CallApi : MonoBehaviour
 	{
 
 
-        print(key);
 
         UnityWebRequest webRequest = UnityWebRequest.Get(key);
 
@@ -121,6 +129,8 @@ public class CallApi : MonoBehaviour
 
     public void CreatePersons(int page)
 	{
+        InputField.SetActive(true);
+
         Destroy(scrollViewInitialized);
 
         scrollViewInitialized = Instantiate(ScrollView,myCanvas.Find("Scroll"));

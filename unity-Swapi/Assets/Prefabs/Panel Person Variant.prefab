@@ -16,6 +16,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1679057039211037499, guid: 0f02e185efee84e4294e855408861da2, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1679057039211037499, guid: 0f02e185efee84e4294e855408861da2, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1703178206939489953, guid: 0f02e185efee84e4294e855408861da2, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -30,7 +38,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1703178206939489953, guid: 0f02e185efee84e4294e855408861da2, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1703178206939489953, guid: 0f02e185efee84e4294e855408861da2, type: 3}
       propertyPath: m_AnchorMin.x
@@ -38,15 +46,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1703178206939489953, guid: 0f02e185efee84e4294e855408861da2, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1703178206939489953, guid: 0f02e185efee84e4294e855408861da2, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 716.75
+      value: 600
       objectReference: {fileID: 0}
     - target: {fileID: 1703178206939489953, guid: 0f02e185efee84e4294e855408861da2, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 341.57
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 1703178206939489953, guid: 0f02e185efee84e4294e855408861da2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -78,11 +86,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1703178206939489953, guid: 0f02e185efee84e4294e855408861da2, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.000004887581
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1703178206939489953, guid: 0f02e185efee84e4294e855408861da2, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -41.99
+      value: 125
       objectReference: {fileID: 0}
     - target: {fileID: 1703178206939489953, guid: 0f02e185efee84e4294e855408861da2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -104,10 +112,38 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4031445489146324497, guid: 0f02e185efee84e4294e855408861da2, type: 3}
+      propertyPath: m_Size
+      value: 0.9999999
+      objectReference: {fileID: 0}
     - target: {fileID: 4294064196215919672, guid: 0f02e185efee84e4294e855408861da2, type: 3}
       propertyPath: panelPrefab
       value: 
       objectReference: {fileID: 8879523856797334459, guid: 0f02e185efee84e4294e855408861da2, type: 3}
+    - target: {fileID: 7181386554274711874, guid: 0f02e185efee84e4294e855408861da2, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7181386554274711874, guid: 0f02e185efee84e4294e855408861da2, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7181386554274711874, guid: 0f02e185efee84e4294e855408861da2, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7181386554274711874, guid: 0f02e185efee84e4294e855408861da2, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8390384441705104582, guid: 0f02e185efee84e4294e855408861da2, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8390384441705104582, guid: 0f02e185efee84e4294e855408861da2, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8879523856797334459, guid: 0f02e185efee84e4294e855408861da2, type: 3}
       propertyPath: m_Name
       value: Panel Person Variant

@@ -237,10 +237,10 @@ RectTransform:
   - {fileID: 1679057039211037499}
   m_Father: {fileID: 1703178206939489953}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 9.35, y: -31.82}
-  m_SizeDelta: {x: 612.93, y: 263.64}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -38.535034}
+  m_SizeDelta: {x: 531.29, y: -77.07}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8373228054372636870
 CanvasRenderer:
@@ -987,10 +987,10 @@ RectTransform:
   - {fileID: 8449567161089504949}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000004887581, y: -41.99}
-  m_SizeDelta: {x: 716.75, y: 341.57}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: 125}
+  m_SizeDelta: {x: 600, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &431766855936249229
 CanvasRenderer:
@@ -1045,7 +1045,6 @@ MonoBehaviour:
   nameText: {fileID: 2500338539337023431}
   textPanel: {fileID: 5317373249029403801, guid: 46b758705439f1741873d01ef28512d9, type: 3}
   buttonPanel: {fileID: 5736922429330301079, guid: 98772f42fbc39544bb0976048203eb1a, type: 3}
-  test: []
   panelPrefab: {fileID: 4866809095054570672, guid: 6ac94fa3d56f1f44fa8d883d2b03dd82, type: 3}
 --- !u!1 &9098721535756322472
 GameObject:

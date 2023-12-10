@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
-using System.Linq;
+
 public class PanelPerson : MonoBehaviour
 {
     [SerializeField] Text nameText;
     [SerializeField] GameObject textPanel;
     [SerializeField] GameObject buttonPanel;
-    [SerializeField] List<string> test;
     [SerializeField] GameObject panelPrefab;
 
     public void Init(Person person)
@@ -32,7 +31,6 @@ public class PanelPerson : MonoBehaviour
         string json = JsonUtility.ToJson(person);
 
         string[] values = json.Split(',');
-        test = values.ToList();
         Text previousText = null;
 
         for (int i = 1; i < values.Length; i++)
@@ -126,7 +124,6 @@ public class PanelPerson : MonoBehaviour
 
         Person butPerson = JsonUtility.FromJson<Person>(result);
 
-        print(butPerson.name);
         if(butPerson.name != null)
 		{
             button.GetComponentInChildren<Text>().text =  butPerson.name;
