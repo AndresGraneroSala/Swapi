@@ -13,6 +13,6 @@ Requisitos:
 * OPCIONAL: Detalle de películas, vehículos, naves, especies...
 * OPCIONAL: Foto de cada personaje.
 
-Soluciones: [**ENLACES A LOS REPOSITORIOS**](./SolucionesReto02.md)<br>
+Soluciones: [**ENLACES A LOS REPOSITORIOS**](https://github.com/mouredev/Monthly-App-Challenge-2022/blob/main/SolucionesReto02.md)<br>
  [**Mi solucion**](https://swapi-3e2af.web.app/)
 
